@@ -32,6 +32,14 @@
             counter2:0,
 
         },
+        watch: {
+            counter: function () {
+                console.log(this.counter);
+            },
+            counter2: function (val) {
+                console.log(val);
+            }
+        },
 
         methods: {
             add:function () {
@@ -43,10 +51,6 @@
             result:function () {
                 return this.counter>3?'more then 3':'less then 3'
             }
-        },
-
-        created() {
-
         },
         
         computed:{
