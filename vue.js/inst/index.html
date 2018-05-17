@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <title>Document</title>
+</head>
+<body>
+
+<div id="app">
+    <h2 ref="heading">{{title}}</h2>
+    <p>{{str}}</p>
+    <button @click="str=' update title ';title='upd' " ref="hor">up</button>
+    <button @click="cons">console</button>
+
+</div>
+
+<hr >
+
+<div id="app2">
+    <p ref="par">{{title}}</p>
+    <button @click="updT1">updTitleVue1</button>
+</div>
+
+<script>
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            str: "TitleVue1",
+            title:''
+        },
+        methods:{
+            fastAlert:function () {
+                alert('alert from app1')
+            },
+            cons:function () {
+                this.$refs.heading.style.color='red';
+                console.log(this.$refs.heading);
+                console.log(this.$refs.hor);
+            }
+        }
+    });
+    app.title='re';
+
+
+
+    var app2 = new Vue({
+        el: '#app2',
+        data: {
+            title: "vue2"
+        },
+        methods: {
+            updT1: function () {
+                app.str="update str from app2";
+                app.title="update title from app2";
+                console.log(this.$refs.par);
+                setTimeout(function () {
+                    app.fastAlert()
+                },2000)
+            }
+        }
+    })
+</script>
+
+</body>
+</html>
