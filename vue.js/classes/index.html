@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <title>V-model</title>
+    <style>
+        .circle{
+            border: 1px solid;
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+        }
+
+        .red {
+            background: red
+        }
+
+        .blue {
+            background: blue
+        }
+
+        .green {
+            background: green;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="circle"
+         @click="isActive=!isActive"
+         :class="{'red':isActive}"
+         style="display: inline-block"
+    >1
+    </div>
+    <div class="circle"
+         @click="isActive2=!isActive2"
+         :class="{'blue':isActive2,'green':!isActive2}"
+         style="display: inline-block"
+    >2
+    </div>
+    <hr>
+    <div class="circle" style="transition: 1s" :class="color"></div>
+    <br>
+    <input type="text" v-model="color">
+    <hr>
+    <input type="range" min="0" max="255" v-model="rgbaR" step="5">
+    <input type="range" min="0" max="255" v-model="rgbaG" step="5">
+    <input type="range" min="0" max="255" v-model="rgbaB" step="5">
+    <input type="range" min="0" max="1" step="0.1" v-model="rgbaA">
+    <p>background:rgb({{rgbaR}},{{rgbaG}},{{rgbaB}},{{rgbaA}})</p>
+    <div
+            class="circle"
+            style="transition: 1s;margin-top: 10px"
+            :style="{'background': 'rgba(' +rgbaR+ ',' +rgbaG+ ',' +rgbaB+ ',' +rgbaA+ ')'}"
+
+    ></div>
+</div>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            isActive: false,
+            isActive2: false,
+            color:'',
+            rgbaR:110,
+            rgbaG:120,
+            rgbaB:60,
+            rgbaA:1,
+        },
+        methods: {}
+    })
+</script>
+
+</body>
+</html>
