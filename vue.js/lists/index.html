@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <title>li</title>
+    <style>
+        li{margin: 5px;transition: 1s}
+    </style>
+</head>
+<body>
+<div id="app">
+    <!--<button @click="getQuotes">get</button>-->
+    <form @submit.prevent="postQuote">
+        <input type="text" v-model="quoteContent" required>
+        <button>post</button>
+    </form>
+    <ol>
+        <li v-for="qoute in quotes" >
+
+                <span>{{ qoute.content }}</span>
+
+                <span><button @click="delQoutes" :data-id="qoute.id">del</button></span>
+
+
+
+
+        </li>
+    </ol>
+</div>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            quotes:[],
+            quoteContent:"",
+            url:"https://limitless-citadel-88557.herokuapp.com/api",
+
+
+        },
+
+        methods: {
+            getQuotes:function () {
+                fetch(this.url+'/quotes')
+                    .then(res=>res.json())
+                    .then(data=>{
+                        this.quotes=data.quotes;
+                        console.log(this.quotes)
+                    })
+            },
+            postQuote:function (e) {
+                fetch(this.url+'/quote',{
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    method:'post',
+                    body:JSON.stringify({content: this.quoteContent})
+                }).then(res=>{
+                    console.log(res);
+                    this.getQuotes();
+                }).catch(err=>console.log(err));
+                this.quoteContent='';
+
+            },
+            delQoutes:function(e){
+                fetch(this.url+'/quote/'+e.target.dataset.id,{
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    method: "DELETE",
+                }).then(res=>{
+                    console.log(res);
+                    this.getQuotes();
+                }).catch(res=> console.log(res))
+
+            }
+
+
+        },
+
+        created(){
+            this.getQuotes()
+        }
+
+
+
+    })
+</script>
+
+</body>
+</html>

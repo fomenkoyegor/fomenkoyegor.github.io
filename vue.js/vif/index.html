@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <title>V-if</title>
+    <style>
+        .circle {
+            border: 1px solid;
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+        }
+
+        .red {
+            background: red
+        }
+
+        .blue {
+            background: blue
+        }
+
+        .green {
+            background: green;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <h1>V-if</h1>
+    <button @click="isVis=!isVis">swow/hide</button>
+    <h2 v-if="isVis">visible</h2>
+    <h2 v-if="!isVis">anvisible</h2>
+    <hr>
+    <input type="text" v-model="isString">
+    <p v-if="isString==='a'">a</p>
+    <p v-else-if="isString==='b'">b</p>
+    <p v-else-if="isString==='c'">c</p>
+    <p v-else-if="isString==='d'">d</p>
+    <p v-else>not match</p>
+    <hr>
+    <input type="checkbox" id="checkbox" v-model="isTitle">
+    <label for="checkbox">{{ isTitle }}</label>
+    <template v-if="isTitle">
+        <h2>title1</h2>
+        <p>Lorem ipsum dolor sit amet.</p>
+    </template>
+    <template v-else>
+        <h2>title2</h2>
+        <p>Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aspernatur blanditiis distinctio ex expedita ipsam ipsum saepe voluptas? Deleniti eligendi id ipsam labore molestias quibusdam!</p>
+    </template>
+    <hr>
+    <h1>V-show(display none)</h1>
+    <button @click="isVis=!isVis">show/hide</button>
+    <h3 v-show="isVis">visible</h3>
+    <h3 v-show="!isVis">anvisible</h3>
+
+
+
+</div>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            isVis: false,
+            isString: "a",
+            isTitle: true
+
+        },
+        methods: {}
+    })
+</script>
+
+</body>
+</html>
