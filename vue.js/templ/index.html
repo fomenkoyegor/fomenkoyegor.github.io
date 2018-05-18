@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+     <!--<p>{{message}} <button>{{counter}}</button></p>-->
+    <!--<button @click="counter++">add+</button>-->
+    <!--<button @click="counter&#45;&#45;">add-</button>-->
+    <!--<my-counter></my-counter>-->
+    <!--<hr>-->
+    <!--<my-example></my-example>-->
+    <!--<hr>-->
+    <!--<my-counter></my-counter>-->
+    <!--<hr>-->
+    <!--<my-example></my-example>-->
+    <!--<hr>-->
+    <!--<my-counter></my-counter>-->
+    <!--<hr>-->
+
+    <my-counter v-for="c in 2"></my-counter>
+    <hr>
+    <my-example v-for="e in 3"></my-example>
+    <hr>
+    <my-counter v-for="c in 2"></my-counter>
+</div>
+<hr>
+<div id="app2" style="border: 1px solid">
+    <my-counter></my-counter>
+</div>
+<hr>
+<div id="app3">
+    <my-local></my-local>
+</div>
+
+<script>
+
+    Vue.component('my-counter',{
+        template:
+            `
+                <div>
+                     <p>{{message}} <button>{{counter}}</button></p>
+                    <button @click="counter++">add+</button>
+                    <button @click="counter--">add-</button>
+                </div>
+
+            `
+        ,data: function () {
+            return {
+                message: 'updated',
+                counter:0
+            }
+        }
+
+    });
+    Vue.component('my-example', {
+        template:`
+            <div>
+                <p>{{ message }}</p>
+                <button @click="upMsg">up</button>
+            </div>
+        `,
+        data: function () {
+            return {
+                message: 'not updated'
+            }
+        },
+        methods: {
+            upMsg: function () {
+                // this.message = 'updated'
+                // console.log(this.$el.textContent) // => 'not updated'
+                // this.$nextTick(function () {
+                //     console.log(this.$el.textContent) // => 'updated'
+                // })
+                this.message==='not updated'?this.message='updated':this.message='not updated'
+            }
+        }
+    })
+
+    var localComponent={
+        template:`
+            <div>
+                <p>{{ message }}</p>
+                <button @click="upMsg">up</button>
+            </div>
+        `,
+        data: function () {
+            return {
+                message: 'local'
+            }
+        },
+        methods: {
+            upMsg: function () {
+                this.message==='local'?this.message='component':this.message='local'
+            }
+        }
+    }
+
+    var app = new Vue({
+        el:'#app',
+    });
+
+    var app2 = new Vue({
+        el:'#app2',
+    });
+
+    var app3 = new Vue({
+        el:'#app3',
+        components:{
+            'my-local':localComponent
+        }
+    });
+
+
+</script>
+</body>
+
+</html>
