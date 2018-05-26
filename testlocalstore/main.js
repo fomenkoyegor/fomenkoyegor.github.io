@@ -19,7 +19,9 @@ function getUsers() {
             lists.innerHTML += `
             <li>
                 <span>${element.login}</span>
-                <button data-userId="${element.id}" id="delUser" >del</button>
+                <button data-userId="${element.id}" id="delUser" >del</button><br>
+                <input type="text" id="edit" value="${element.login}">
+                <button data-userId="${element.id}" id="updateUser" >save</button>
             </li>
         `
         });
@@ -65,6 +67,7 @@ dellStore.addEventListener('click', () => {
 
 
 lists.addEventListener('click',(e)=>{
+    
     if(e.target.matches("#delUser")) {
         // alert(e.target.dataset.userid)
         let users = JSON.parse(localStorage.getItem("users"));
@@ -73,5 +76,26 @@ lists.addEventListener('click',(e)=>{
         let newParseUsers=JSON.stringify(NewUsers);
         window.localStorage.setItem('users', newParseUsers);
         getUsers()
+    }
+
+    if(e.target.matches("#updateUser")) {
+        
+        let users = JSON.parse(localStorage.getItem("users"));
+        let NewUsers=users.filter(c=>c.id !== e.target.dataset.userid);
+
+        let NewUser=users.find(x=>x.id== e.target.dataset.userid);
+        if(!e.target.parentNode.querySelector("#edit").value) return;
+
+        NewUser.login=e.target.parentNode.querySelector("#edit").value;
+        let user={
+            login:NewUser.login,
+            id:NewUser.id
+        };
+        NewUsers.push(user);
+
+        let newUpdUsers=JSON.stringify(NewUsers);
+        window.localStorage.setItem('users', newUpdUsers);
+        getUsers()
+    
     }
 })

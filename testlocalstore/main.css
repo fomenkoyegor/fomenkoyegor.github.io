@@ -1,0 +1,12 @@
+ul li{
+    margin: 10px;
+    border: 1px solid
+}
+
+ul li:nth-child(2n){
+    background: gray
+}
+
+ul li *{
+    padding: 5px
+}
