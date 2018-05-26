@@ -18,10 +18,11 @@ function getUsers() {
 
             lists.innerHTML += `
             <li>
-                <span>${element.login}</span>
-                <button data-userId="${element.id}" id="delUser" >del</button><br>
+                <span class="logName">${element.login}</span><br>
+                
                 <input type="text" id="edit" value="${element.login}">
                 <button data-userId="${element.id}" id="updateUser" >save</button>
+                <button data-userId="${element.id}" id="delUser" >del</button><br>
             </li>
         `
         });
@@ -97,5 +98,13 @@ lists.addEventListener('click',(e)=>{
         window.localStorage.setItem('users', newUpdUsers);
         getUsers()
     
+    }
+
+    
+})
+
+lists.addEventListener('input',(e)=>{
+    if(e.target.matches("#edit")){
+        e.target.parentNode.querySelector(".logName").textContent=e.target.value;
     }
 })
