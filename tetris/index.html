@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+
+    <script>
+        window.addEventListener('load', function () {
+
+            var canvas = document.querySelector('#canvas');
+            canvas.width = 1000;
+            canvas.height = 500;
+            canvas.style.border = '1px solid red'
+            var dc = canvas.getContext('2d');
+            var _60fps = 40, ballX = 0, ballY = 0, ballSpeedX = 7, ballSpeedY = 4, ballWidth = 10, ballHeight = 10;
+            var LeftContrX = 0, LeftContrY = 0, LeftContrW = 10, LeftContrH = 100;
+            var RightContrY = 0, RightContrW = 10, RightContrH = LeftContrH, RightContrX = canvas.width - RightContrW;
+            var paddleLeftY = 250, PADDLE_HEIGHT = LeftContrH;
+            var countL = 0, countR = 0, step = 1;
+            
+
+            function calculateMousePosition(e) {
+                var rect = canvas.getBoundingClientRect();
+                var root = document.documentElement;
+                var mouseX = e.clientX - rect.left - root.scrollLeft;
+                var mouseY = e.clientY - rect.top - root.scrollTop;
+                return {
+                    x: mouseX,
+                    y: mouseY
+                };
+            }
+            /* setInterval(function () {
+                muve();
+                drawFone();
+                drawBall();
+                drawLeftControl();
+                drawRightControl();
+                drawCell();
+                drawText();
+            }, _60fps) */
+            function anim() {
+                muve();
+                drawFone();
+                drawBall();
+                drawLeftControl();
+                drawRightControl();
+                drawCell();
+                drawText();
+                requestAnimationFrame(anim)
+            }
+            anim()
+
+
+            canvas.addEventListener('mousemove', function (e) {
+                var mousePosition = calculateMousePosition(e);
+                paddleLeftY = mousePosition.y - (PADDLE_HEIGHT / 2);
+            })
+
+            
+
+            function ballReset() {
+                ballSpeedX = -ballSpeedX;
+                ballX = canvas.width / 2;
+                ballY = canvas.height / 2;
+            }
+            function muve() {
+               
+                ballX += ballSpeedX;
+                ballY += ballSpeedY;
+                if (ballX < 0) { /* ballSpeedX=-ballSpeedX */
+                    if (ballY > paddleLeftY &&
+                        ballY < paddleLeftY + PADDLE_HEIGHT) {
+                        ballSpeedX = -ballSpeedX
+                    } else { ballReset(); countR+=step; }
+                }
+                if (ballX >= canvas.width) {
+                    if (ballY > paddleLeftY &&
+                        ballY < paddleLeftY + PADDLE_HEIGHT) {
+                        ballSpeedX = -ballSpeedX
+                    } else { ballReset();  countL+=step;}
+                }
+                if (ballY < 0) ballSpeedY = -ballSpeedY;
+                if (ballY >= canvas.height) ballSpeedY = -ballSpeedY;
+                // console.log(ballX, ballX);
+            }
+            function drawFone() {
+                dc.fillStyle = 'black';
+                dc.fillRect(0, 0, canvas.width, canvas.height)
+            }
+            function drawBall() {
+                dc.fillStyle = 'orange';
+                dc.beginPath();
+                dc.arc(ballX, ballY, ballWidth, 0, Math.PI * 2, true);
+                dc.fill();
+            }
+            function drawLeftControl() {
+                dc.fillStyle = 'rgb(76, 70, 155)';
+                dc.fillRect(LeftContrX, paddleLeftY, LeftContrW, PADDLE_HEIGHT)
+            }
+            function drawRightControl() {
+                dc.fillStyle = 'rgb(76, 70, 155)';
+                dc.fillRect(RightContrX, paddleLeftY, RightContrW, PADDLE_HEIGHT)
+            }
+            function drawCell() {
+                dc.strokeStyle = 'blue';
+                dc.beginPath();
+                dc.setLineDash([5, 15]);
+                dc.moveTo(canvas.width / 2, 0);
+                dc.lineTo(canvas.width / 2, canvas.height);
+                dc.stroke();
+            }
+            function drawText() {
+                dc.font = "30px Comic Sans MS";
+                dc.fillStyle = "blue)";
+                dc.textAlign = "center";
+                dc.fillText(countL, canvas.width / 4, canvas.height / 8);
+                dc.fillText(countR, (canvas.width / 4)*3, canvas.height / 8);
+            }
+
+            function launchFullscreen(element) {
+                if(element.requestFullScreen){
+                    element.requestFullScreen();
+                }else if(element.webkitRequestFullScreen){
+                    element.webkitRequestFullScreen();
+                }
+            }
+            canvas.addEventListener('click',function () {
+                launchFullscreen(canvas)
+            })
+            
+        })
+    </script>
+
+</head>
+
+
+<body>
+    <canvas id="canvas"></canvas>
+
+</body>
+
+</html>
