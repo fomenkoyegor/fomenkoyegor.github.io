@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        #random_person_name{
+            background: rgba(0,0,0,0.51);
+        }
+    </style>
+    <!-- Compiled and minified JavaScript -->
+
+
+    <title>RickAndMorty</title>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col s12 m7">
+            <div class="card">
+                <div class="card-image">
+                    <img width="100%" src="https://rickandmortyapi.com/api/character/avatar/1.jpeg" alt="rickAndMorty" id="avatar_img">
+                    <span class="card-title" id="random_person_name">Rick Sanchez</span>
+                </div>
+                <div class="card-content">
+                    <p id="random_person_info"></p>
+                </div>
+                <div class="card-action">
+                    <a href="#">This is a link</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row" id="galarry">
+
+    </div>
+</div>
+
+
+<script
+        src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+<script>
+    var count = 0;
+    var currentPage = 1;
+    var persons = [];
+    var gallary = $("#galarry");
+    var url_person = 'https://rickandmortyapi.com/api/character/';
+    var rand = function (min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    };
+
+    var getAllPersons = function () {
+        $.get(url_person+"?page="+currentPage,function (data) {
+           renderGallary(data);
+        })
+    };
+
+
+    var renderGallary = function (res) {
+        count = res.info.count;
+        var results = res.results;
+        persons = results;
+        // persons = persons.concat(results);
+        $.each(persons,function (index,person) {
+            var personCard = "<div class=\"card-image\">\n" +
+                "                    <img width=\"100%\" src=\""+person.image+"\" alt=\"rickAndMorty\" >\n" +
+                "                    <span class=\"card-title\" >"+person.name+"</span>\n" +
+                "                </div>\n" +
+                "                <div class=\"card-content\">\n" +
+                "                    <p>"+person.species+"</p>\n" +
+                "                </div></div>";
+            var personCont = "<div class=\"col l3 s12 m4\">"+personCard+"</div>";
+            gallary.append(personCont);
+        });
+
+
+    };
+
+
+
+    var getPersonByIdRandom = function (id=rand(1,493)) {
+
+            $.get(url_person+"/"+id,function (data) {
+                $("#avatar_img").attr('src',data.image);
+                $("#random_person_name").text(data.name);
+                var originName = data.origin.name!="unknown"?data.origin.name:"name";
+                var info = data.status + "_"+data.species
+                 +"_"+data.gender+"_"+originName;
+                $("#random_person_info").text(info);
+
+            })
+
+
+    };
+
+
+    $(document).ready(function () {
+        setInterval(function () {
+            getPersonByIdRandom()
+        },5000);
+        getPersonByIdRandom();
+
+        getAllPersons();
+
+
+        $(window).scroll(function () {
+            var PageY = window.pageYOffset;
+            var AllH = $(document).height()-$(window).height();
+            if (PageY==AllH) {
+                if(currentPage==493){
+                    currentPage=1;
+                    getAllPersons();
+                }else {
+                    currentPage++;
+                    getAllPersons()
+                }
+
+            }
+        })
+    });
+
+
+  
+
+
+
+</script>
+
+</body>
+</html>
