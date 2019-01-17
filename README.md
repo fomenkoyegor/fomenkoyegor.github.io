@@ -9,3 +9,6 @@ https://fomenkoyegor.github.io/dist
 https://fomenkoyegor.github.io/angularGoogeMap/
 
 https://fomenkoyegor.github.io/rickimorty/
+
+
+https://fomenkoyegor.github.io/testapisplash/
