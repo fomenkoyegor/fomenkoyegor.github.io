@@ -21,3 +21,16 @@ https://fomenkoyegor.github.io/tetris/
 
 
 https://server-vxivgrpdsy.now.sh
+
+
+https://laramusic.000webhostapp.com/
+
+
+http://larangtest.zzz.com.ua
+
+
+
+https://recept-wyugpacqgf.now.sh
+
+
+https://news-rvdfojmsqj.now.sh/
