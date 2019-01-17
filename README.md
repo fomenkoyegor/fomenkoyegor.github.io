@@ -15,3 +15,6 @@ https://fomenkoyegor.github.io/testapisplash/
 
 
 https://fomenkoyegor.github.io/motorent/
+
+
+https://fomenkoyegor.github.io/tetris/
