@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+*,
+html,
+body {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+  overflow: hidden;
+}
+
+body {
+  background: #333;
+}
+
+header {
+  height: 10vh;
+  width: 50%;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+header nav {
+  width: 100%;
+}
+header ul {
+  display: flex;
+  justify-content: space-around;
+}
+header ul li {
+  padding: 5px;
+}
+header ul li a.nav-links {
+  color: whitesmoke;
+  padding: 5px;
+  border-bottom: 1px solid transparent;
+  transition: 0.4s ease;
+}
+header ul li a.nav-links.active, header ul li a.nav-links:hover {
+  border-bottom: 10px solid red;
+}
+
+.home {
+  height: 90vh;
+  width: 100%;
+  background: #a8c0ff;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #3f2b96, #a8c0ff);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #3f2b96, #a8c0ff);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.home.about {
+  background: #800080;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #ffc0cb, #800080);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #ffc0cb, #800080);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.home.contacts {
+  background: #ff9966;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #ff5e62, #ff9966);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #ff5e62, #ff9966);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.home-content {
+  height: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.home-content img {
+  height: 70vh;
+  padding-right: 50px;
+}
+.home-content h1 {
+  font-size: 50px;
+  margin: 30px 0;
+}
+.home-content p {
+  font-size: 15px;
+}
+.home-presentation {
+  padding: 50px;
+}
+
+/*# sourceMappingURL=/gsapanim.80ee2152.css.map */
