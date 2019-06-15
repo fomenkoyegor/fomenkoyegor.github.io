@@ -23,7 +23,7 @@ https://fomenkoyegor.github.io/tetris/
 https://server-vxivgrpdsy.now.sh
 
 
-https://laramusic.000webhostapp.com/
+https://fomamusic.000webhostapp.com
 
 
 http://larangtest.zzz.com.ua
