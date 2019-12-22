@@ -51,5 +51,5 @@ https://shop-upgkqnqyet.now.sh/
 https://angular-routing.fomenkoyegor.now.sh
 
 
-
+https://instasearch.fomenkoyegor.now.sh/
 
